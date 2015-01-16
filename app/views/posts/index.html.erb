@@ -12,7 +12,15 @@
 <% if @posts.any? %>
     <% @posts.each do |post| %>
         <tr>
-            <td><%= link_to('<i class = "glyphicon glyphicon-arrow-up"></i>'.html_safe, post_vote_path(post), method: :post)%> <%= post.votes.length%> </td>
+            <td>
+                <%= post.votes.length%>
+                <% if post.votes.where(user_id:@current_user['id']).any? %>
+                <i class = "glyphicon glyphicon-star-empty" style="color: gray"></i>
+                <% else %>
+                <%= link_to('<i class = "glyphicon glyphicon-star-empty" style="color: red"></i>'.html_safe, post_vote_path(post), method: :post)%>
+                <%end%>
+                </td>
+
             <td><%= link_to post.title,post.link, :target=>'_blank' %></td>
             <td><%= post.user ? post.user.name : 'Unknown' %></td>
             <td><%= format_creation_time post %> </td>

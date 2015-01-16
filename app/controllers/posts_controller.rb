@@ -3,6 +3,11 @@ class PostsController < ApplicationController
     def index
         @posts = Post.all
         @votes = Vote.all
+        respond_to do |format|
+          format.json {render json: @posts}
+          format.html
+          format.xml {render xml: @posts}
+        end
     end
 
     def create_vote

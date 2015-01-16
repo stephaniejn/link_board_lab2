@@ -1,17 +1,21 @@
 <li class = 'comment'>
   <div>
-    <%= comment.user ? comment.user.name : "Unknown" %>
-    <small> <%= format_creation_time comment %> </small>
-
+  <%= comment.votes.length%>
+   <% if comment.votes.where(user_id:@current_user['id']).any? %>
+   <i class = "glyphicon glyphicon-star-empty" style="color: gray"></i>
+   <% else %>
+   <%= link_to('<i class = "glyphicon glyphicon-star-empty" style="color: red"></i>'.html_safe, comment_votes_path(comment), method: :post)%>
+   <%end%>
+   <%= comment.user ? comment.user.name : "Unknown" %>
+   <small> <%= format_creation_time comment %> </small>
   </div>
-  <td> <%= link_to('<i class = "glyphicon glyphicon-arrow-up"></i>'.html_safe, comment_votes_path(comment), method: :post)%> <%= comment.votes.length%></td>
-  <div>
-    <%= comment.body %>
-    <%= link_to "reply", new_comment_comment_path(comment) %>
-  </div>
-  <% unless comment.comments.empty? %>
-  <ul class = 'comment_list'>
-    <%= render :partial => 'comment', :collection => comment.comments %>
-  </ul>
-  <% end %>
+ <div>
+  <%= comment.body %>
+  <%= link_to "reply", new_comment_comment_path(comment) %>
+</div>
+<% unless comment.comments.empty? %>
+<ul class = 'comment_list'>
+  <%= render :partial => 'comment', :collection => comment.comments %>
+</ul>
+<% end %>
 </li>
