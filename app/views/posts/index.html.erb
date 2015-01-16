@@ -12,8 +12,7 @@
 <% if @posts.any? %>
     <% @posts.each do |post| %>
         <tr>
-            <td>
-            <%= post.votes.length%> <%= button_to "↑", post_vote_path(post), :class=>"btn btn-xs"%></td>
+            <td><%= link_to('<i class = "glyphicon glyphicon-arrow-up"></i>'.html_safe, post_vote_path(post), method: :post)%> <%= post.votes.length%> </td>
             <td><%= link_to post.title,post.link, :target=>'_blank' %></td>
             <td><%= post.user ? post.user.name : 'Unknown' %></td>
             <td><%= format_creation_time post %> </td>
