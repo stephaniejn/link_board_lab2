@@ -13,9 +13,15 @@ Rails.application.routes.draw do
   resources :users
   get 'signup' => 'users#new', as: :signup
 
-
-
   resources :posts
+  get "posts/:id/comments" => 'posts#comments', as: :post_comments
+  post "posts/:id/comments" => 'posts#create_comment'
+
+  get 'comments/:id/comments/new' => 'comments#new_comment', as: :new_comment_comment
+  post 'comments/:id/comments' => 'comments#create_comment', as: :comment_comments
+
+  post 'comments/:id/votes'=> 'comments#create_vote', as: :comment_votes
+  post 'posts/:id/votes'=> 'posts#create_vote', as: :post_vote
 
   # get 'users/new'
 

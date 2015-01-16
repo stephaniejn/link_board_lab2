@@ -6,15 +6,20 @@
     <th>User</th>
     <th>Posted</th>
     <th>Comments</th>
+
 </tr>
+
 <% if @posts.any? %>
     <% @posts.each do |post| %>
         <tr>
-            <td>0</td>
+            <td>
+            <%= post.votes.length%> <%= button_to "↑", post_vote_path(post), :class=>"btn btn-xs"%></td>
             <td><%= link_to post.title,post.link, :target=>'_blank' %></td>
             <td><%= post.user ? post.user.name : 'Unknown' %></td>
             <td><%= format_creation_time post %> </td>
-            <td>0</td>
+
+            <td><%= link_to "Comment", post_comments_path(post), :class=>"btn btn-primary btn-xs"%></td>
+
         </tr>
     <% end %>
 <% else %>
